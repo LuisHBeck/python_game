@@ -17,12 +17,20 @@ vida = diferenca + 50
 acerto = 0
 
 def temponeg(msg="\nSEU TEMPO ACABOU!!"):
+    numpensado()
     print(msg)
     pid = os.getpid()
     os.kill(pid, 0)
 
-t = Timer(30.0, temponeg)
-t.start()
+def comecar():
+    pronto = int(input('[1] para começar o jogo: '))
+    print('~~'*15)
+    if pronto == 1:
+        t = Timer(30.0, temponeg)
+        t.start()
+    else:
+        print('OPÇÃO INVÁLIDA')
+        exit()
 
 def numeroGerado():
     numeroPc = randint(1, 100)
@@ -37,8 +45,11 @@ def numrecebido():
     return num_recebido
 
 def cabecalho():
-    print('==' * 35)
-    print('''O COMPUTADOR IRÁ PENSAR EM UM NÚMERO DE 1 A 100. TENTE ADIVINHAR''')
+    print('')
+    print('==' * 15, ' REGRAS ', '==' * 15)
+    print('''O COMPUTADOR IRÁ PENSAR EM UM NÚMERO DE 1 A 100. 
+VOCÊ TEM 3 TENTATIVAS; 30 SEGUNDOS; 50 DE VIDA; 
+CADA ERRO SERÁ DESCONTADO A DIFERENÇA EM SUA VIDA TENTE ADIVINHAR''')
     print('==' * 35)
 
 def vidas():
@@ -54,21 +65,21 @@ def errou():
 def numpensado():
     print('Número pensado = {}{}{}'.format(collors['X'], valorpc, collors['C']))
 
-
 cabecalho()
+comecar()
 vidas()
 valorpc = numeroGerado()
 
 while tentativas < 3 and numeroGerado() != numrecebido() and vida > 0:
     tentativas += 1
-    num_digitado = int(input('Digite sua tentativa: '))
+    num_digitado = int(input('Digite sua tentativa: \n'))
     print('~~'*15)
     testdiferenca = subvida()
     if valorpc == num_digitado:
         acerto +=1
         acertou()
-        numpensado()
         temponeg("FIM DE JOGO!")
     vida -= testdiferenca
     vidas()
 errou()
+temponeg("FIM DE JOGO!")
