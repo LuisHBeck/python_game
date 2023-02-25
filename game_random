@@ -23,14 +23,15 @@ def temponeg(msg="\nSEU TEMPO ACABOU!!"):
     os.kill(pid, 0)
 
 def comecar():
-    pronto = int(input('[1] para começar o jogo: '))
+    pronto = int(input('[1] PARA COMEÇAR: '))
     print('~~'*15)
+    while pronto != 1:
+        print('OPÇÃO INVÁLIDA. TENTE NOVAMENTE')
+        pronto = int(input('[1] PARA COMEÇAR: '))
+        print('~~' * 15)
     if pronto == 1:
-        t = Timer(30.0, temponeg)
+        t = Timer(15.0, temponeg)
         t.start()
-    else:
-        print('OPÇÃO INVÁLIDA')
-        exit()
 
 def numeroGerado():
     numeroPc = randint(1, 100)
